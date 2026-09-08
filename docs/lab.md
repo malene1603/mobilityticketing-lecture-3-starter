@@ -2,19 +2,15 @@
 
 ## Purpose
 
-Implement and compare a direct SQL query, a user-defined function, a materialised view, and a trigger-maintained summary for daily captured revenue. Use the differences to decide where the responsibility belongs.
+Implement and compare a direct SQL query, a user-defined function, a materialized view, and a trigger-maintained summary for daily captured revenue. Use the differences to decide where the responsibility belongs.
 
-The aim is not to choose the feature with the most SQL. The aim is to make execution timing, dependencies, transaction scope, freshness, and recovery explicit.
-
-## Timebox
-
-Approximately 120 minutes.
+The aim is not to simply choose the option with the most or the least SQL. Make a fair comparison of the options. Take into account execution timing, dependencies, transaction scope, freshness, and recovery.
 
 ## Scenario
 
-Operators need daily captured revenue. The initial design proposes a `daily_revenue_by_operator` table maintained when payments are inserted. Reports may also be calculated directly from the transactional tables or exposed through a materialised view.
+Operators need daily captured revenue. The initial design proposes a `daily_revenue_by_operator` table maintained when payments are inserted. Reports may also be calculated directly from the transactional tables or exposed through a materialized view.
 
-The `payments` table is the authority for this experiment. Treat the stored reporting results as derived data unless your responsibility matrix argues for another choice.
+The `payments` table is the authority for this experiment. Treat the stored reporting results as derived data.
 
 ## Before you start
 
@@ -31,7 +27,7 @@ Run the base query in [`../database/postgres/queries/base_revenue.sql`](../datab
 
 1. Run the reference revenue query and verify its result from the base tables.
 2. Wrap the read logic in a SQL function.
-3. Create a materialised view and observe when it becomes stale.
+3. Create a materialized view and observe when it becomes stale.
 4. Create the supplied trigger-maintained summary.
 5. Test all four approaches against:
    - a captured payment insert;
@@ -79,8 +75,10 @@ For one `INSERT INTO payments`, record:
 6. the point at which each report becomes current;
 7. what the application can observe.
 
-## Recommendation boundary
+## Your recommendation
 
-Do not choose only on speed. Include coupling, correction behaviour, duplicate delivery, observability, recovery, and the cost of rebuilding a derived result.
+What's your final recommendation?
 
-The lab does not require a final event-projection architecture. It also does not solve the ticket-purchase concurrency race or payment capture across an external gateway.
+It's important to not **only** choose the fastest option. Think about the effects on coupling, correction behavior, duplicate delivery, observability and recovery.
+
+Remember that the lab does not require a final architecture. We will address problems like ticket-purchase concurrency and payment capture in later lectures.

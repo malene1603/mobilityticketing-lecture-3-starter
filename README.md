@@ -1,10 +1,10 @@
 # MobilityTicketing: SQL programmability lab
 
-This is the implementation lab for the second databases lecture. It uses the same small MobilityTicketing case and compares four ways to produce daily captured revenue:
+This is the implementation lab for the third databases lecture. It uses the same small MobilityTicketing case and compares four ways to produce daily captured revenue:
 
 1. a direct aggregate query;
 2. a SQL function over the base tables;
-3. a materialised view;
+3. a materialized view;
 4. a trigger-maintained summary table.
 
 The supplied trigger is intentionally incomplete. The lab is successful when the differences are observable, explained, and tied to a recommendation.
@@ -12,7 +12,6 @@ The supplied trigger is intentionally incomplete. The lab is successful when the
 ## Requirements
 
 - Docker Desktop with Compose
-- 120 minutes
 - The lecture notes and the implementation lab in [`docs/lab.md`](docs/lab.md)
 
 ## Start the database
@@ -31,7 +30,7 @@ docker compose down
 docker compose up -d
 ```
 
-## Student workflow
+## Your workflow
 
 1. Read [`docs/lab.md`](docs/lab.md).
 2. Run the base revenue query from [`database/postgres/queries/base_revenue.sql`](database/postgres/queries/base_revenue.sql).
@@ -41,7 +40,7 @@ docker compose up -d
 6. Record the output before and after each case.
 7. Submit the required evidence, responsibility matrix, side-effect trace, issue, and decision record.
 
-Apply a student migration from the repository root with:
+Apply a migration from the repository root with:
 
 ```bash
 docker compose exec -T postgres psql -U mobility -d mobility < database/postgres/migrations/020_reporting_function.sql
@@ -56,9 +55,8 @@ Use the same command for the other migrations after you have completed them. Kee
 - `database/postgres/migrations/`: incomplete student migration examples.
 - `database/postgres/queries/`: released reporting query.
 - `database/postgres/experiments/`: test cases for inserts, corrections, deletes, and duplicate delivery.
-- `docs/`: the lab, quiz, asynchronous workshop, and self-assessment rubric.
-- `instructor/`: the sample solution and verification script. Release this folder only after the first implementation deadline.
+- `docs/`: the lab
 
 ## Scope boundary
 
-This lab does not settle concurrency in ticket purchase, payment capture across an external gateway, or the full projection architecture. Those are intentionally kept for later lectures.
+This lab does not settle concurrency in ticket purchase, payment capture across an external gateway, or other problems we will address. Those are intentionally kept for later lectures.
